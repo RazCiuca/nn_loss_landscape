@@ -56,15 +56,15 @@ Somewhat surprisingly, it turns out that these 4 separate phenomena can be unifi
 
 The simplest model that exhibits the strange cliff-drop-at-lr-decrease feature is optimising a quadratic function $f(x) = \lambda (x-\epsilon)^2$, where $\epsilon \sim N(0, \sigma^2)$ is a random variable added every time the function is sampled. When doing gradient descent with a learning rate $\alpha$ on such a stochastic function, the update equations become:
 
-$$f(x) = \lambda (x-\epsilon)^2$$ 
+$$f(x) = \frac{1}{2}\lambda (x-\epsilon)^2$$ 
 
-$$ f'(x) = 2\lambda (x-\epsilon)$$ 
+$$ f'(x) = \lambda (x-\epsilon)$$ 
 
-$$ x_{n+1} = x_n - 2\alpha \lambda (x_n-\epsilon) $$
+$$ x_{n+1} = x_n - \alpha \lambda (x_n-\epsilon) $$
 
-$$x_{n+1} = x_n - 2\alpha \lambda x_n + \epsilon^*$$
+$$x_{n+1} = x_n - \alpha \lambda x_n + \epsilon^*$$
 
-$$ x_{n+1} = x_n\bigg(1-2\alpha\lambda\bigg) + \epsilon^* $$
+$$ x_{n+1} = x_n\bigg(1-\alpha\lambda\bigg) + \epsilon^* $$
 
 
 Where $\epsilon^* \sim N\big(0, (2\alpha\lambda\sigma)^2\big) = N(0, \eta^2)$, introducing a new variable $\eta$ for later convenience. Now, the randomness injected via $\epsilon^*$ will be counterbalanced by the shrinking with factor $\bigg(1-2\alpha\lambda\bigg)$, and at equilibrium we'd expect both effects to counterbalance each other. If we assume that at equilibrium each $x_n$ to be independent of $x_{n-1}$ and distributed according to a simple gaussian $p(x) = N(0, s^2)$, we can solve for $s^2$ and obtain the following result:
